@@ -1,0 +1,463 @@
+/* ===== リセット・ベース ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== アプリ全体レイアウト（左右2カラム） ===== */
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== 左サイドバー ===== */
+.sidebar {
+  width: 320px;
+  min-width: 280px;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 16px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* 新規作成ボタン（サイドバー上部） */
+.btn-new {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-new:hover {
+  background: #2563eb;
+}
+
+/* ===== 検索バー ===== */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 12px 8px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.search-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #374151;
+  outline: none;
+}
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 13px;
+  padding: 0 2px;
+}
+.search-clear:hover {
+  color: #6b7280;
+}
+
+/* ===== カテゴリタブ ===== */
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px 12px 8px;
+}
+
+.cat-tab {
+  background: #f3f4f6;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.cat-tab:hover {
+  background: #e5e7eb;
+}
+.cat-tab.active {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+/* メモ件数表示 */
+.memo-count {
+  font-size: 11px;
+  color: #9ca3af;
+  padding: 0 14px 4px;
+}
+
+/* ===== メモ一覧 ===== */
+.memo-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  padding: 4px 8px 16px;
+}
+
+.list-empty {
+  padding: 32px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* 各メモカード */
+.memo-item {
+  position: relative;
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 12px 10px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.memo-item:hover {
+  background: #f0f7ff;
+  border-color: #93c5fd;
+}
+.memo-item.selected {
+  background: #eff6ff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+/* 完了済みは薄く表示 */
+.memo-item.done {
+  opacity: 0.6;
+}
+
+.pin-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 12px;
+}
+
+.category-badge {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 10px;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 5px;
+  opacity: 0.85;
+}
+
+.memo-item-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+
+.done-check {
+  font-size: 12px;
+}
+
+.memo-item-preview {
+  font-size: 12px;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.memo-item-date {
+  font-size: 10px;
+  color: #9ca3af;
+  margin-bottom: 4px;
+}
+
+/* カード内のアクションボタン（ホバー時に表示） */
+.memo-item-actions {
+  display: none;
+  gap: 4px;
+  margin-top: 6px;
+}
+.memo-item:hover .memo-item-actions {
+  display: flex;
+}
+
+.action-btn {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 3px 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  opacity: 0.6;
+}
+.action-btn:hover,
+.action-btn.active {
+  opacity: 1;
+  background: #e5e7eb;
+}
+.action-btn.delete-btn:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+/* ===== 右：エディターパネル ===== */
+.editor-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* メモ未選択時の空状態 */
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: #9ca3af;
+}
+
+.empty-icon {
+  font-size: 48px;
+  opacity: 0.4;
+}
+
+.empty-text {
+  font-size: 15px;
+}
+
+/* 空状態の大きな新規作成ボタン */
+.btn-new-lg {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-new-lg:hover {
+  background: #2563eb;
+}
+
+/* ===== エディター ===== */
+.editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ツールバー（カテゴリ選択・ピン・完了・削除） */
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  flex-wrap: wrap;
+}
+
+.category-select {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #374151;
+  background: #f9fafb;
+  cursor: pointer;
+  outline: none;
+}
+.category-select:focus {
+  border-color: #3b82f6;
+}
+
+.toolbar-right {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.toolbar-btn:hover {
+  background: #e5e7eb;
+}
+.toolbar-btn.active {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+.toolbar-btn.delete:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+/* タイトル入力 */
+.editor-title {
+  border: none;
+  outline: none;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f2937;
+  padding: 20px 24px 8px;
+  width: 100%;
+  background: transparent;
+}
+.editor-title::placeholder {
+  color: #d1d5db;
+}
+
+/* 本文入力（縦に広がる） */
+.editor-body {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #374151;
+  padding: 8px 24px 16px;
+  resize: none;
+  background: transparent;
+  font-family: inherit;
+}
+.editor-body::placeholder {
+  color: #d1d5db;
+}
+
+/* 作成・更新日時 */
+.editor-footer {
+  display: flex;
+  gap: 20px;
+  padding: 10px 24px;
+  border-top: 1px solid #f0f0f0;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* ===== スマホ対応（768px以下で縦並び） ===== */
+@media (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
+
+  .app {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: unset;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .editor-panel {
+    min-height: 50vh;
+  }
+
+  .editor-toolbar {
+    padding: 10px 14px;
+    gap: 6px;
+  }
+
+  .toolbar-right {
+    margin-left: 0;
+  }
+
+  .editor-title {
+    font-size: 18px;
+    padding: 14px 16px 6px;
+  }
+
+  .editor-body {
+    padding: 6px 16px 12px;
+    font-size: 14px;
+    min-height: 200px;
+  }
+
+  .editor-footer {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 16px;
+  }
+}
